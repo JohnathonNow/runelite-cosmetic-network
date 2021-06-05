@@ -1,7 +1,7 @@
 # Cosmetics Network
 A plugin for setting up some cosmetic appearance for yourself that every other user with the plugin can see.
 
-![An example of the plugin in action](/resources/example.png)
+![An example of the plugin in action](resources/example.png)
 
 # Using the plugin
 Once the plugin is enabled, it will query for the costumes of other players and apply them as needed.
