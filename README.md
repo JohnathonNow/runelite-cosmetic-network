@@ -14,3 +14,8 @@ In order to set your own cosmetics:
 5. Turn the plugin back on.  
 
 This will save your cosmetics data and will become visible to everyone else using the plugin within five minutes.
+
+# Layout
+
+Note that this branch is the branch for the plugin itself. The [db](https://github.com/JohnathonNow/runelite-cosmetic-network/tree/db)
+branch contains the source code for the backend that stores the cosmetics of every player.
