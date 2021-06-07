@@ -4,18 +4,22 @@ A plugin for setting up some cosmetic appearance for yourself that every other u
 ![An example of the plugin in action](resources/example.png)
 
 # Using the plugin
-Once the plugin is enabled, it will query for the costumes of other players and apply them as needed.
+Once the plugin is enabled, it will query for the cosmetic overrides of other players and apply them as needed.
 
-In order to set your own cosmetics:  
-1. Disable the plugin.
-2. Equip whatever you want your cosmetic appearance to be.  
-3. Enter the settings menu of the Cosmetics plugin.  
-4. Toggle the `Save Now` option.  
-5. Turn the plugin back on.  
+# Setting Your Overrides
+Of course, the plugin would be more or less useless if you couldn't somehow set your own cosmetic overrides.
+Unfortunately, verifying the owner of a RuneScape account from a third party source is difficult. To make matters
+worse, many in the community feel it is important for cosmetic overrides only be settable to items an account
+has already obtained. For these reasons, setting your overrides is a bit more convoluted than it probably
+deserves to be.
 
-This will save your cosmetics data and will become visible to everyone else using the plugin within five minutes.
+First, equip all items you want to use as your cosmetic override.
+Second, join the `RLCosmetics` Chat Channel. 
+Next, find a ranked member of the Chat, such as TheArmy (who is usually alching or crafting at the GE), and find them in-game.
+Once you find them, send the message `!cosmetics` in the _Chat Channel_. On their end, the plugin will save your cosmetics data,
+and your overrides will become visible to everyone else using the plugin within five minutes. If you disable and re-enable the plugin
+for yourself it should update almost instantly for you.
 
 # Layout
-
 Note that this branch is the branch for the plugin itself. The [db](https://github.com/JohnathonNow/runelite-cosmetic-network/tree/db)
 branch contains the source code for the backend that stores the cosmetics of every player.
