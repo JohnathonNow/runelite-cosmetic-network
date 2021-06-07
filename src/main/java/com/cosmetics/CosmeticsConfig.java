@@ -32,13 +32,13 @@ import net.runelite.client.config.ConfigItem;
 public interface CosmeticsConfig extends Config
 {
     @ConfigItem(
-            keyName = "saveNow",
-            name = "Save Now",
-            description = "Save your current gear as your cosmetics?",
+            keyName = "apiKey",
+            name = "API Key",
+            description = "If you are a ranked member of the RLCosmetics Chat Channel, fill this with your API Key.",
             position = 0
     )
-    default boolean saveNow()
+    default String apiKey()
     {
-        return false;
+        return "";
     }
 }

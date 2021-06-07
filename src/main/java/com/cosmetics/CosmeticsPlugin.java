@@ -26,10 +26,8 @@ package com.cosmetics;
 
 import com.google.inject.Provides;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.Player;
-import net.runelite.api.PlayerComposition;
-import net.runelite.api.Varbits;
+import net.runelite.api.*;
+import net.runelite.api.events.ChatMessage;
 import net.runelite.api.events.GameTick;
 import net.runelite.api.events.PlayerChanged;
 import net.runelite.api.events.VarbitChanged;
@@ -52,7 +50,8 @@ import java.util.HashMap;
 	tags = {"cosmetics", "players"}
 )
 public class CosmeticsPlugin extends Plugin {
-	public static String CONFIG_GROUP = "cosmetics";
+	public static String CHAT_COMMAND = "!cosmetics";
+
 	private final int FREQUENCY = 3;
 	@Inject
 	private Client client;
@@ -83,22 +82,19 @@ public class CosmeticsPlugin extends Plugin {
 	protected void startUp() throws Exception
 	{
 		enabled = true;
-		storeCosmetics();
 		process();
 	}
 
-	private void storeCosmetics() {
-		if (client.getLocalPlayer() != null) {
-			cache.save(new CosmeticsPlayer(client.getLocalPlayer()));
-		}
-	}
 
 	@Subscribe
-	public void onConfigChanged(ConfigChanged event) {
-		if (event.getGroup().equals(CONFIG_GROUP)) {
-			config.saveNow();
-			event.setNewValue("false");
-			storeCosmetics();
+	public void onChatMessage(ChatMessage event) {
+		if (enabled && event.getMessage().startsWith(CHAT_COMMAND) && !config.apiKey().isEmpty()) {
+			for (Player p : client.getPlayers()) {
+				if (p.getName().equals(event.getSender())) {
+					cache.save(new CosmeticsPlayer(p), config.apiKey());
+					break;
+				}
+			}
 		}
 	}
 

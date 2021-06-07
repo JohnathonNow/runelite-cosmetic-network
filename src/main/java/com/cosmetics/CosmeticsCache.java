@@ -31,11 +31,11 @@ public class CosmeticsCache {
         }
     }
 
-    public void save(CosmeticsPlayer p) {
+    public void save(CosmeticsPlayer p, String apiKey) {
         synchronized (cache) {
             cache.put(p.name, new CosmeticsData(System.currentTimeMillis(), p));
         }
-        httpClient.newCall(buildRequestSave(p)).enqueue(new Callback()
+        httpClient.newCall(buildRequestSave(p, apiKey)).enqueue(new Callback()
         {
             @Override
             public void onFailure(Call call, IOException e)
@@ -109,10 +109,11 @@ public class CosmeticsCache {
                 .build();
     }
 
-    public Request buildRequestSave(CosmeticsPlayer p) {
+    public Request buildRequestSave(CosmeticsPlayer p, String apiKey) {
         HttpUrl url = null;
         try {
             url = HttpUrl.get(new URL(DATABASE_URL)).newBuilder()
+                    .addPathSegment(apiKey)
                     .build();
         } catch (MalformedURLException e) {
             e.printStackTrace();
