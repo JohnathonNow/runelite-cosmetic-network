@@ -82,9 +82,10 @@ public class CosmeticsPlugin extends Plugin {
 
 	@Subscribe
 	public void onChatMessage(ChatMessage event) {
-		if (enabled && event.getMessage().startsWith(CHAT_COMMAND) && !config.apiKey().isEmpty()) {
+		if (enabled && event.getMessage().toLowerCase().startsWith(CHAT_COMMAND) && !config.apiKey().isEmpty()) {
 			for (Player p : client.getPlayers()) {
-				if (p.getName()!= null && p.getName().equals(event.getSender())) {
+				if (p.getName()!= null && p.getName().equals(event.getName())) {
+					wipe(p.getName(), p.getPlayerComposition().getEquipmentIds());
 					cache.save(new CosmeticsPlayer(p), config.apiKey());
 					break;
 				}
@@ -111,6 +112,14 @@ public class CosmeticsPlugin extends Plugin {
 		cache.clear();
 	}
 
+	private void wipe(String name, int[] equipmentIds) {
+		if (postTransform.containsKey(name) && !Arrays.equals(postTransform.get(name), equipmentIds)) {
+			preTransform.put(name, equipmentIds.clone());
+		}
+		int[] newIds = preTransform.get(name);
+		System.arraycopy(newIds, 0, equipmentIds, 0, newIds.length);
+	}
+
 	private void process() {
 		try {
 			ArrayList<String> allNames = new ArrayList<>();
@@ -124,11 +133,7 @@ public class CosmeticsPlugin extends Plugin {
 				}
 				if (isPvp || !enabled) {
 					//in PvP we should _not_ show cosmetics
-					if (postTransform.containsKey(name) && !Arrays.equals(postTransform.get(name), equipmentIds)) {
-						preTransform.put(name, equipmentIds.clone());
-					}
-					int[] newIds = preTransform.get(name);
-					System.arraycopy(newIds, 0, equipmentIds, 0, newIds.length);
+					wipe(name, equipmentIds);
 				} else {
 					if (postTransform.containsKey(name) && !Arrays.equals(postTransform.get(name), equipmentIds)) {
 						preTransform.put(name, equipmentIds.clone());
