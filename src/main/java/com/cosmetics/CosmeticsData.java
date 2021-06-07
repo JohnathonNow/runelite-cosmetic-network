@@ -21,5 +21,5 @@ public class CosmeticsData {
         this.cp = cp;
     }
 
-    private CosmeticsPlayer cp;
+    private final CosmeticsPlayer cp;
 }

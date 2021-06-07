@@ -14,9 +14,9 @@ import java.util.List;
 
 @Slf4j
 public class CosmeticsCache {
-    private final String DATABASE_URL = "https://billiardssketch.fun/cosmetics/";
-    private final int TIME_TO_LIVE = 5 * 60 * 1000;
-    private HashMap<String, CosmeticsData> cache = new HashMap<>();
+    private static final String DATABASE_URL = "https://billiardssketch.fun/cosmetics/";
+    private static final int TIME_TO_LIVE = 5 * 60 * 1000;
+    private final HashMap<String, CosmeticsData> cache = new HashMap<>();
     private final OkHttpClient httpClient = new OkHttpClient();
 
     public void clear() {
@@ -44,7 +44,7 @@ public class CosmeticsCache {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException
+            public void onResponse(Call call, Response response)
             {
 
             }
@@ -52,7 +52,7 @@ public class CosmeticsCache {
     }
 
     public void fillCache(String[] names) {
-        String[] filtered = (String[])Arrays.stream(names).filter((x) -> !isValid(x)).toArray(String[]::new);
+        String[] filtered = Arrays.stream(names).filter((x) -> !isValid(x)).toArray(String[]::new);
         if (filtered.length == 0) {
             return;
         }

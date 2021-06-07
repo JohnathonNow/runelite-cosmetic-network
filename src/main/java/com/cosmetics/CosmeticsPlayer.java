@@ -18,22 +18,6 @@ public class CosmeticsPlayer {
     public int jaws;
     public int hair;
 
-    public CosmeticsPlayer(String name, int head, int body, int cape, int legs, int neck, int hand, int ring, int feet, int weap, int shld, int jaws, int hair) {
-        this.name = name;
-        this.head = head;
-        this.body = body;
-        this.cape = cape;
-        this.legs = legs;
-        this.neck = neck;
-        this.hand = hand;
-        this.ring = ring;
-        this.feet = feet;
-        this.weap = weap;
-        this.shld = shld;
-        this.jaws = jaws;
-        this.hair = hair;
-    }
-
     public CosmeticsPlayer(Player p) {
         int[] equipmentIds = p.getPlayerComposition().getEquipmentIds();
         name = p.getName();

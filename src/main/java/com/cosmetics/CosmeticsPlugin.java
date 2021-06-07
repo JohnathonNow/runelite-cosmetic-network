@@ -33,8 +33,6 @@ import net.runelite.api.events.PlayerChanged;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
-import net.runelite.client.events.ConfigChanged;
-import net.runelite.client.menus.MenuManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 
@@ -51,16 +49,13 @@ import java.util.HashMap;
 )
 public class CosmeticsPlugin extends Plugin {
 	public static String CHAT_COMMAND = "!cosmetics";
-
 	private final int FREQUENCY = 3;
+
 	@Inject
 	private Client client;
 
 	@Inject
 	private CosmeticsConfig config;
-
-	@Inject
-	private MenuManager mm;
 
 	@Provides
 	CosmeticsConfig getConfig(ConfigManager configManager)
@@ -72,25 +67,24 @@ public class CosmeticsPlugin extends Plugin {
 	private boolean isPvp = false;
 	private boolean wasPvp = false;
 	private boolean enabled = false;
-	private CosmeticsCache cache = new CosmeticsCache();
+	private final CosmeticsCache cache = new CosmeticsCache();
 
-	private HashMap<String, int[]> preTransform = new HashMap<>();
-	private HashMap<String, int[]> postTransform = new HashMap<>();
+	private final HashMap<String, int[]> preTransform = new HashMap<>();
+	private final HashMap<String, int[]> postTransform = new HashMap<>();
 	private int timer = 0;
 
 	@Override
-	protected void startUp() throws Exception
+	protected void startUp()
 	{
 		enabled = true;
 		process();
 	}
 
-
 	@Subscribe
 	public void onChatMessage(ChatMessage event) {
 		if (enabled && event.getMessage().startsWith(CHAT_COMMAND) && !config.apiKey().isEmpty()) {
 			for (Player p : client.getPlayers()) {
-				if (p.getName().equals(event.getSender())) {
+				if (p.getName()!= null && p.getName().equals(event.getSender())) {
 					cache.save(new CosmeticsPlayer(p), config.apiKey());
 					break;
 				}
@@ -99,7 +93,7 @@ public class CosmeticsPlugin extends Plugin {
 	}
 
 	@Override
-	protected void shutDown() throws Exception
+	protected void shutDown()
 	{
 		enabled = false;
 		process();
