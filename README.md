@@ -21,5 +21,4 @@ and your overrides will become visible to everyone else using the plugin within 
 for yourself it should update almost instantly for you.
 
 # Layout
-Note that this branch is the branch for the plugin itself. The [db](https://github.com/JohnathonNow/runelite-cosmetic-network/tree/db)
-branch contains the source code for the backend that stores the cosmetics of every player.
+Note that this repository is the branch for the plugin itself. The source code for the backend that stores the cosmetics of every player is hosted [here](https://github.com/JohnathonNow/rcn-backend).
